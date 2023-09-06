@@ -71,8 +71,9 @@ const (
 	spicedbIDRegexString             = `^(([a-zA-Z0-9/_|\-=+]{1,})|\*)$`
 	spicedbPermissionRegexString     = "^([a-z][a-z0-9_]{1,62}[a-z0-9])?$"
 	spicedbTypeRegexString           = "^([a-z][a-z0-9_]{1,61}[a-z0-9]/)?[a-z][a-z0-9_]{1,62}[a-z0-9]$"
-	
+
 	cnMobileRegexString = `^1[3-9]\d{9}$`
+	emojiRegexString    = `[\x{1F600}-\x{1F64F}]|[\x{2702}-\x{27B0}]|[\x{1F680}-\x{1F6FF}]|[\x{1F1E0}-\x{1F1FF}]`
 )
 
 var (
@@ -143,4 +144,5 @@ var (
 	spicedbPermissionRegex     = regexp.MustCompile(spicedbPermissionRegexString)
 	spicedbTypeRegex           = regexp.MustCompile(spicedbTypeRegexString)
 	cnMobileRegex              = regexp.MustCompile(cnMobileRegexString)
+	emojiRegex                 = regexp.MustCompile(emojiRegexString)
 )

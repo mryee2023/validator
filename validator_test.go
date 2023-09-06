@@ -112,6 +112,13 @@ type TestSlice struct {
 	OmitEmpty []int `validate:"omitempty,min=1,max=10"`
 }
 
+type TestEmoji struct {
+	Required string `validate:"required,not_emoji"`
+}
+type TestCNMobile struct {
+	Required string `validate:"required,cnMobile"`
+}
+
 func AssertError(t *testing.T, err error, nsKey, structNsKey, field, structField, expectedTag string) {
 	errs := err.(ValidationErrors)
 
@@ -9012,6 +9019,24 @@ func TestStructFloat64Validation(t *testing.T) {
 	AssertError(t, errs, "TestFloat64.Max", "TestFloat64.Max", "Max", "Max", "max")
 	AssertError(t, errs, "TestFloat64.MinMax", "TestFloat64.MinMax", "MinMax", "MinMax", "min")
 	AssertError(t, errs, "TestFloat64.OmitEmpty", "TestFloat64.OmitEmpty", "OmitEmpty", "OmitEmpty", "max")
+}
+
+func TestStructEmojiAndCNMobile(t *testing.T) {
+	validate := New()
+	tSuccess := TestEmoji{
+
+		Required: "abcde1_098+",
+	}
+	errs := validate.Struct(tSuccess)
+
+	Equal(t, errs, nil)
+	tFail := TestEmoji{
+		Required: "abcde1_098+😀",
+	}
+
+	errs = validate.Struct(tFail)
+
+	NotEqual(t, errs, nil)
 }
 
 func TestStructSliceValidation(t *testing.T) {
