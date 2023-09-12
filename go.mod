@@ -1,4 +1,4 @@
-module github.com/go-playground/validator/v10
+module github.com/mryee2023/validator
 
 go 1.18
 
