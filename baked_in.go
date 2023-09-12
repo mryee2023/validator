@@ -2920,5 +2920,12 @@ func isCNMobile(fl FieldLevel) bool {
 }
 
 func hasEmoji(fl FieldLevel) bool {
-	return !emojiRegex.MatchString(fl.Field().String())
+	val := fl.Field().String()
+	for _, value := range val {
+		_, size := utf8.DecodeRuneInString(string(value))
+		if size > 3 {
+			return true
+		}
+	}
+	return false
 }
